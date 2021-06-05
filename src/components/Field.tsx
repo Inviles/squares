@@ -5,8 +5,20 @@ import React, { useCallback, useState } from 'react';
 
 import { Squares } from 'src/Squares';
 
-const TMP_STYLE = {
-  width: '100px', height: '100px', border: '2px solid grey', display: 'inline-block',
+const getTMPStyles = (player: number | null) => {
+  const styles = {
+    width: '100px',
+    height: '100px',
+    border: '2px solid grey',
+    display: 'inline-block',
+    backgroundColor: '',
+  };
+
+  if (player) {
+    styles.backgroundColor = player === 1 ? 'blue' : 'green';
+  }
+
+  return styles;
 };
 
 const SquaresGame = new Squares();
@@ -29,7 +41,7 @@ const Field: React.FC = () => {
         <div>
           {row.map((column, columnIndex) => (
             <div
-              style={TMP_STYLE}
+              style={getTMPStyles(column)}
               onClick={() => selectSquare(rowIndex, columnIndex)}
             >
               square:
