@@ -35,6 +35,12 @@ const Field: React.FC = () => {
     setField(updatedField);
   }, []);
 
+  const finishGame = useCallback(() => {
+    const winner = SquaresGame.finish();
+
+    console.log('winner', winner);
+  }, []);
+
   return (
     <>
       {field.map((row, rowIndex) => (
@@ -51,6 +57,8 @@ const Field: React.FC = () => {
           ))}
         </div>
       ))}
+
+      <button type="button" onClick={finishGame}>Finish</button>
     </>
   );
 };

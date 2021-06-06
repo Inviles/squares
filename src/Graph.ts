@@ -24,29 +24,27 @@ class Graph {
     let longestPath = 0;
     let currentPathLength = 0;
 
-    const dfs = (vertex: any) => {
-      visited[vertex] = true;
+    const depthFirstSearch = (vertex: number) => {
+      const neighbors = list[vertex];
+      const hasNeighbors = neighbors.length > 0;
 
+      visited[vertex] = true;
       currentPathLength += 1;
 
-      if (list[vertex].length === 0) {
-        return null;
+      if (!hasNeighbors) {
+        return;
       }
 
-      list[vertex].forEach((neighbor) => {
+      neighbors.forEach((neighbor) => {
         if (!visited[neighbor]) {
-          return dfs(neighbor);
+          depthFirstSearch(neighbor);
         }
-
-        return null;
       });
-
-      return null;
     };
 
     vertecies.forEach((vertex) => {
       if (!visited[vertex]) {
-        dfs(vertex);
+        depthFirstSearch(Number(vertex));
       }
 
       if (currentPathLength > longestPath) {

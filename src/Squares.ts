@@ -72,9 +72,20 @@ class Squares {
     makeConnectionsBetweenSiblingSquares();
     this.switchPlayer();
 
-    console.log('this.findLongestPath', this.firstPlayerGraph.findLongestPath());
-
     return this.field;
+  }
+
+  finish = (): Player => {
+    const firstPlayerPathLength = this.firstPlayerGraph.findLongestPath();
+    const secondPlayerPathLength = this.secondPlayerGraph.findLongestPath();
+
+    const winner = firstPlayerPathLength > secondPlayerPathLength
+      ? 1
+      : 2;
+
+    console.log('winner', winner);
+
+    return winner;
   }
 }
 
