@@ -1,0 +1,14 @@
+.Square  {
+  display: inline-block;
+  width: 100px;
+  height: 100px;
+  border: 1px solid grey;
+
+  &_player_first {
+    background-color: red;
+  }
+
+  &_player_second {
+    background-color: green;
+  }
+}

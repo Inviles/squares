@@ -10,8 +10,8 @@ module.exports = {
     'plugin:unicorn/recommended',
     'plugin:compat/recommended',
     'plugin:react-perf/recommended',
-    'plugin:@typescript-eslint/recommended',
     'airbnb',
+    'plugin:@typescript-eslint/recommended',
   ],
   parser: '@typescript-eslint/parser',
   parserOptions: {

@@ -1,9 +1,9 @@
 /* eslint-disable unicorn/no-new-array */
 import { Graph } from './Graph';
 
-type Player = 1 | 2;
-type SquareItem = Player | null;
-type Row = SquareItem[];
+export type Player = 1 | 2;
+export type Square = Player | null;
+export type Row = Square[];
 type Field = Row[];
 
 class Squares {
@@ -82,8 +82,6 @@ class Squares {
     const winner = firstPlayerPathLength > secondPlayerPathLength
       ? 1
       : 2;
-
-    console.log('winner', winner);
 
     return winner;
   }

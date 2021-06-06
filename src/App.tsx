@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Field } from 'src/components/Field';
+import { Field } from 'src/components/Field/Field';
 
 const App: React.FC = () => (
   <div className="App">
