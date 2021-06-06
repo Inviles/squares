@@ -19,6 +19,10 @@ const Field: React.FC<Props> = ({ makeMove, field, onFinishGame }) => (
         <Col xs={12}>
           {field.map((squaresRow, rowIndex) => (
             <SquaresRow
+              // It's okay to use index here as a key
+              // because the amount of items will never change
+              // eslint-disable-next-line react/no-array-index-key
+              key={rowIndex}
               row={squaresRow}
               rowIndex={rowIndex}
               onSelectSquare={makeMove}
