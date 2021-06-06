@@ -15,10 +15,13 @@ class Squares {
 
   currentPlayer: Player = null;
 
+  remainingNumberOfMoves = 0;
+
   start = (fieldSize = 3): Field => {
     this.firstPlayerGraph = new Graph();
     this.secondPlayerGraph = new Graph();
     this.currentPlayer = 1;
+    this.remainingNumberOfMoves = fieldSize * fieldSize;
 
     const arrayFilledWithNulls = (): null[] => new Array(fieldSize).fill(null);
     const rows = arrayFilledWithNulls();
@@ -33,6 +36,14 @@ class Squares {
   }
 
   makeMove = (rowIndex: number, columnIndex: number): Field => {
+    if (this.currentPlayer === null) {
+      throw new Error('The game hasn`\t started yet');
+    }
+
+    if (this.remainingNumberOfMoves === 0) {
+      throw new Error('There aren\'t any moves left');
+    }
+
     const targetGraph = this.currentPlayer === 1 ? this.firstPlayerGraph : this.secondPlayerGraph;
     const fieldSize = this.field.length;
     const vertexIndex = columnIndex + rowIndex * fieldSize;
@@ -72,6 +83,8 @@ class Squares {
     updateGraph();
     selectSquare();
     makeConnectionsBetweenSiblingSquares();
+
+    this.remainingNumberOfMoves -= 1;
     this.switchPlayer();
 
     return this.field;

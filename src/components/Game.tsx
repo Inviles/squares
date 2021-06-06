@@ -26,9 +26,14 @@ const Game: React.FC = () => {
 
   const makeMove = useCallback((rowIndex: number, columnIndex: number) => {
     const updatedField = SquaresGame.makeMove(rowIndex, columnIndex);
+    const { remainingNumberOfMoves } = SquaresGame;
 
     setField(updatedField);
-  }, []);
+
+    if (remainingNumberOfMoves === 0) {
+      handleFinishGame();
+    }
+  }, [handleFinishGame]);
 
   return isPlaying && field
     ? (
