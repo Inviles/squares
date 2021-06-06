@@ -1,8 +1,8 @@
 /* eslint-disable unicorn/no-new-array */
 import { Graph } from './Graph';
 
-export type Player = 1 | 2;
-export type Square = Player | null;
+type Player = 1 | 2 | null;
+export type Square = Player;
 export type Row = Square[];
 export type Field = Row[];
 
@@ -13,10 +13,12 @@ class Squares {
 
   secondPlayerGraph = new Graph();
 
-  currentPlayer: Player = 1;
+  currentPlayer: Player = null;
 
   start = (fieldSize = 3): Field => {
-    console.log('[DEBUG] ===> start game');
+    this.firstPlayerGraph = new Graph();
+    this.secondPlayerGraph = new Graph();
+    this.currentPlayer = 1;
 
     const arrayFilledWithNulls = (): null[] => new Array(fieldSize).fill(null);
     const rows = arrayFilledWithNulls();
@@ -79,11 +81,11 @@ class Squares {
     const firstPlayerPathLength = this.firstPlayerGraph.findLongestPath();
     const secondPlayerPathLength = this.secondPlayerGraph.findLongestPath();
 
-    const winner = firstPlayerPathLength > secondPlayerPathLength
-      ? 1
-      : 2;
+    if (firstPlayerPathLength === secondPlayerPathLength) {
+      return null;
+    }
 
-    return winner;
+    return firstPlayerPathLength > secondPlayerPathLength ? 1 : 2;
   }
 }
 
