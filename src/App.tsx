@@ -1,10 +1,17 @@
 import React from 'react';
+import { Container, Row, Col } from 'react-bootstrap';
 
-import { Field } from 'src/components/Field/Field';
+import { Game } from 'src/components';
 
 const App: React.FC = () => (
   <div className="App">
-    <Field />
+    <Container>
+      <Row>
+        <Col>
+          <Game />
+        </Col>
+      </Row>
+    </Container>
   </div>
 );
 

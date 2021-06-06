@@ -1,14 +1,16 @@
+@import 'src/scss/variables.scss';
+
 .Square  {
   display: inline-block;
   width: 100px;
   height: 100px;
-  border: 1px solid grey;
+  border: 1px solid $gray-500;
 
   &_player_first {
-    background-color: red;
+    background-color: $red;
   }
 
   &_player_second {
-    background-color: green;
+    background-color: $green;
   }
 }

@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 import React, { useCallback, useState } from 'react';
+import { Button } from 'react-bootstrap';
 
 import { Squares } from 'src/Squares';
 import { SquaresRow } from 'src/components/SquaresRow';
@@ -23,7 +24,7 @@ const Field: React.FC = () => {
   }, []);
 
   return (
-    <>
+    <div>
       {field.map((squaresRow, rowIndex) => (
         <SquaresRow
           row={squaresRow}
@@ -32,8 +33,8 @@ const Field: React.FC = () => {
         />
       ))}
 
-      <button type="button" onClick={finishGame}>Finish</button>
-    </>
+      <Button variant="primary" onClick={finishGame}>Finish</Button>
+    </div>
   );
 };
 
