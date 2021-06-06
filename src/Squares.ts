@@ -4,7 +4,7 @@ import { Graph } from './Graph';
 export type Player = 1 | 2;
 export type Square = Player | null;
 export type Row = Square[];
-type Field = Row[];
+export type Field = Row[];
 
 class Squares {
   field: Field = [];

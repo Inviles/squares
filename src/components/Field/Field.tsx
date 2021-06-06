@@ -1,41 +1,40 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
-import React, { useCallback, useState } from 'react';
-import { Button } from 'react-bootstrap';
+import React from 'react';
+import { Button, Row, Col } from 'react-bootstrap';
 
-import { Squares } from 'src/Squares';
-import { SquaresRow } from 'src/components/SquaresRow';
+import { Field as FieldType } from 'src/Squares';
+import { SquaresRow } from 'src/components';
 
-const SquaresGame = new Squares();
+interface Props {
+  makeMove: (rowIndex: number, columnIndex: number) => void;
+  field: FieldType;
+  onFinishGame: () => void;
+}
 
-const Field: React.FC = () => {
-  const [field, setField] = useState(SquaresGame.start);
+const Field: React.FC<Props> = ({ makeMove, field, onFinishGame }) => (
+  <Row className="py-5">
+    <Col className="d-flex flex-column align-items-center">
+      <Row>
+        <Col xs={12}>
+          {field.map((squaresRow, rowIndex) => (
+            <SquaresRow
+              row={squaresRow}
+              rowIndex={rowIndex}
+              onSelectSquare={makeMove}
+            />
+          ))}
+        </Col>
 
-  const handleSelectSquare = useCallback((rowIndex: number, columnIndex: number) => {
-    const updatedField = SquaresGame.makeMove(rowIndex, columnIndex);
+        {/*
+        <Col xs={5}>
+          Current player: 1
+        </Col> */}
+      </Row>
 
-    setField(updatedField);
-  }, []);
-
-  const finishGame = useCallback(() => {
-    const winner = SquaresGame.finish();
-
-    console.log('winner', winner);
-  }, []);
-
-  return (
-    <div>
-      {field.map((squaresRow, rowIndex) => (
-        <SquaresRow
-          row={squaresRow}
-          rowIndex={rowIndex}
-          onSelectSquare={handleSelectSquare}
-        />
-      ))}
-
-      <Button variant="primary" onClick={finishGame}>Finish</Button>
-    </div>
-  );
-};
+      <Button className="mt-3" onClick={onFinishGame}>Finish</Button>
+    </Col>
+  </Row>
+);
 
 export { Field };

@@ -21,8 +21,14 @@ const Square: React.FC<Props> = ({
   const cx = classNames.bind(classes);
 
   const handleSelectSquare = useCallback(() => {
+    const isSquareAlreadyTaken = Boolean(player);
+
+    if (isSquareAlreadyTaken) {
+      return;
+    }
+
     onSelectSquare(rowIndex, columnIndex);
-  }, [rowIndex, columnIndex, onSelectSquare]);
+  }, [player, rowIndex, columnIndex, onSelectSquare]);
 
   const squareClasses = cx(
     'Square',

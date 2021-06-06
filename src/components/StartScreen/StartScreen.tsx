@@ -21,6 +21,7 @@ const StartScreen: React.FC<Props> = ({ onStartGame }) => (
             <Col className="d-flex flex-column align-items-center mb-3">
               <img
                 width="500px"
+                height="486px"
                 src={SquareExample}
                 alt="Squares example"
               />
@@ -41,10 +42,7 @@ const StartScreen: React.FC<Props> = ({ onStartGame }) => (
 
           <Row>
             <Col className="d-flex justify-content-center">
-              <Button
-                variant="primary"
-                onClick={onStartGame}
-              >
+              <Button onClick={onStartGame}>
                 Start game
               </Button>
             </Col>
