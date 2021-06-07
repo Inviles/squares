@@ -1,4 +1,4 @@
-export { Field } from './Field/Field';
+export { PlayingScreen } from './PlayingScreen/PlayingScreen';
 export { Square } from './Square/Square';
 export { Game } from './Game';
 export { SquaresRow } from './SquaresRow';

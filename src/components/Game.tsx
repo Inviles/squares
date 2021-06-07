@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from 'react';
 
 import { Squares, Field as FieldType } from 'src/Squares';
-import { Field, StartScreen } from 'src/components';
+import { PlayingScreen, StartScreen } from 'src/components';
 
 const SquaresGame = new Squares();
 
@@ -37,7 +37,7 @@ const Game: React.FC = () => {
 
   return isPlaying && field
     ? (
-      <Field
+      <PlayingScreen
         field={field}
         makeMove={makeMove}
         onFinishGame={handleFinishGame}
