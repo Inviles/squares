@@ -9,12 +9,30 @@ interface Props {
   onStartGame: (fieldSize: number) => void;
 }
 
+const MIN_FIELD_SIZE = 2;
+const MAX_FIELD_SIZE = 8;
+const DEFAULT_FIELD_SIZE = 3;
+
 const StartScreen: React.FC<Props> = ({ onStartGame }) => {
-  const [fieldSize, setFieldSize] = useState(3);
+  const [fieldSize, setFieldSize] = useState(DEFAULT_FIELD_SIZE);
+  const [inputError, setInputError] = useState('');
 
   const handleChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
-    setFieldSize(Number(event.target.value));
-  }, []);
+    const value = Number(event.target.value);
+    const isValid = value >= MIN_FIELD_SIZE && value <= MAX_FIELD_SIZE;
+
+    setFieldSize(Number(value));
+
+    if (isValid && inputError) {
+      setInputError('');
+
+      return;
+    }
+
+    if (!isValid) {
+      setInputError(`The field size must be ${MIN_FIELD_SIZE} <= N <= ${MAX_FIELD_SIZE}`);
+    }
+  }, [inputError]);
 
   const handleStartGame = useCallback(() => {
     onStartGame(fieldSize);
@@ -58,19 +76,25 @@ const StartScreen: React.FC<Props> = ({ onStartGame }) => {
                 You can set the board size N*N squares (2&nbsp;&#8804;&nbsp;N&nbsp;&#8804;&nbsp;8):
               </Col>
 
-              <Col xs={3}>
+              <Col xs={4} className="my-3">
                 <FormControl
                   type="number"
-                  className="my-3"
                   value={fieldSize}
                   onChange={handleChange}
+                  min={MIN_FIELD_SIZE}
+                  max={MAX_FIELD_SIZE}
                 />
+
+                {inputError && <small className="text-danger mt-2 d-inline-block">{inputError}</small>}
               </Col>
             </Row>
 
             <Row>
               <Col className="d-flex justify-content-center">
-                <Button onClick={handleStartGame} defaultValue={3}>
+                <Button
+                  onClick={handleStartGame}
+                  disabled={Boolean(inputError)}
+                >
                   Start game
                 </Button>
               </Col>
