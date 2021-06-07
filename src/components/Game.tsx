@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from 'react';
 
-import { Squares, Field, Player } from 'src/Squares';
+import { Squares, Field } from 'src/Squares';
 import { PlayingScreen, StartScreen, WinnerModal } from 'src/components';
 
 const SquaresGame = new Squares();
@@ -10,7 +10,8 @@ const DEFAULT_MODAL_STATE = { isShown: false, winner: null };
 const Game: React.FC = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [field, setField] = useState<Field>();
-  const [currentPlayer, setCurrentPlayer] = useState<Player>(null);
+  const [currentPlayer, setCurrentPlayer] = useState(SquaresGame.currentPlayer);
+  const [statistics, setStatistics] = useState(SquaresGame.statistics);
   const [winnerModal, setWinnerModal] = useState(DEFAULT_MODAL_STATE);
 
   const handleShowModal = useCallback((winner) => setWinnerModal({ isShown: true, winner }), []);
@@ -22,6 +23,7 @@ const Game: React.FC = () => {
     setIsPlaying(true);
     setCurrentPlayer(SquaresGame.currentPlayer);
     setField(gameField);
+    setStatistics(SquaresGame.statistics);
   }, []);
 
   const handleFinishGame = useCallback(() => {
@@ -33,13 +35,12 @@ const Game: React.FC = () => {
   }, [handleShowModal]);
 
   const makeMove = useCallback((rowIndex: number, columnIndex: number) => {
-    const result = SquaresGame.makeMove(rowIndex, columnIndex);
+    const updatedField = SquaresGame.makeMove(rowIndex, columnIndex);
     const { remainingNumberOfMoves } = SquaresGame;
 
-    console.log('result', result);
-
-    setField(result.field);
+    setField(updatedField);
     setCurrentPlayer(SquaresGame.currentPlayer);
+    setStatistics(SquaresGame.statistics);
 
     if (remainingNumberOfMoves === 0) {
       handleFinishGame();
@@ -53,6 +54,7 @@ const Game: React.FC = () => {
         field={field}
         makeMove={makeMove}
         onFinishGame={handleFinishGame}
+        statistics={statistics}
       />
     )
     : (

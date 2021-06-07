@@ -5,10 +5,11 @@ export type Player = 1 | 2 | null;
 export type Square = Player;
 export type Row = Square[];
 export type Field = Row[];
-type Statistics = Record<Exclude<Player, null>, number>;
-type MakeMove = (rowIndex: number, columnIndex: number) => { field: Field, statistics: Statistics };
+export type Statistics = Record<Exclude<Player, null>, number>;
+export type MakeMove = (rowIndex: number, columnIndex: number) => Field;
 
 const GAME_HAS_NOT_STARTED = 'The game has not started yet';
+const DEFAULT_STATISTICS = { 1: 0, 2: 0 };
 
 class Squares {
   field: Field = [];
@@ -23,7 +24,7 @@ class Squares {
 
   remainingNumberOfMoves = 0;
 
-  statistics: Statistics = { 1: 0, 2: 0 };
+  statistics: Statistics = DEFAULT_STATISTICS;
 
   start = (fieldSize = 3): Field => {
     this.firstPlayerGraph = new Graph();
@@ -31,6 +32,7 @@ class Squares {
     this.currentPlayer = 1;
     this.currentPlayerGraph = this.firstPlayerGraph;
     this.remainingNumberOfMoves = fieldSize * fieldSize;
+    this.statistics = DEFAULT_STATISTICS;
 
     const createArrayFilledWithNulls = (): null[] => new Array(fieldSize).fill(null);
     const rows = createArrayFilledWithNulls();
@@ -59,7 +61,7 @@ class Squares {
     this.remainingNumberOfMoves -= 1;
     this.switchPlayer();
 
-    return { field: this.field, statistics: updatedStatistics };
+    return this.field;
   }
 
   finish = (): Player => {
@@ -67,14 +69,14 @@ class Squares {
       throw new Error(GAME_HAS_NOT_STARTED);
     }
 
-    const firstPlayerPathLength = this.firstPlayerGraph.findLongestPath();
-    const secondPlayerPathLength = this.secondPlayerGraph.findLongestPath();
+    const firstPlayerWinningSquares = this.statistics[1];
+    const secondPlayerWinningSquares = this.statistics[2];
 
-    if (firstPlayerPathLength === secondPlayerPathLength) {
+    if (firstPlayerWinningSquares === secondPlayerWinningSquares) {
       return null;
     }
 
-    return firstPlayerPathLength > secondPlayerPathLength ? 1 : 2;
+    return firstPlayerWinningSquares > secondPlayerWinningSquares ? 1 : 2;
   }
 
   private selectSquare = (rowIndex: number, columnIndex: number) => {

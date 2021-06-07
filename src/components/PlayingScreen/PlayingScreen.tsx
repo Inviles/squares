@@ -4,7 +4,7 @@ import React from 'react';
 import { Button, Row, Col } from 'react-bootstrap';
 import classNames from 'classnames/bind';
 
-import { Field, Player } from 'src/Squares';
+import { Field, Player, Statistics } from 'src/Squares';
 import { SquaresRow } from 'src/components';
 import classes from './PlayingScreen.module.scss';
 
@@ -13,12 +13,15 @@ interface Props {
   makeMove: (rowIndex: number, columnIndex: number) => void;
   field: Field;
   onFinishGame: () => void;
+  statistics: Statistics;
 }
 
 const PlayingScreen: React.FC<Props> = ({
-  player, makeMove, field, onFinishGame,
+  player, makeMove, field, onFinishGame, statistics,
 }) => {
   const cx = classNames.bind(classes);
+  const firstPlayerWinningSquares = statistics[1];
+  const secondPlayerWinningSquares = statistics[2];
 
   return (
     <Row className={cx('PlayingScreen', 'py-5')}>
@@ -42,6 +45,20 @@ const PlayingScreen: React.FC<Props> = ({
                 onSelectSquare={makeMove}
               />
             ))}
+          </Col>
+        </Row>
+
+        <Row>
+          <Col>
+            <p className="mt-2 mb-0">
+              <span className="font-weight-bold">First player: </span>
+              {firstPlayerWinningSquares}
+            </p>
+
+            <p className="mb-0">
+              <span className="font-weight-bold">Second player: </span>
+              {secondPlayerWinningSquares}
+            </p>
           </Col>
         </Row>
 
