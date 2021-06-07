@@ -2,6 +2,7 @@
   "name": "squares",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://inviles.github.io/squares/",
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
@@ -26,7 +27,8 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "eslint . --ext .js --ext .jsx",
-    "lint:fix": "eslint . --fix --ext .js --ext .jsx"
+    "lint:fix": "eslint . --fix --ext .js --ext .jsx",
+    "deploy": "./deploy.sh"
   },
   "eslintConfig": {
     "extends": [
