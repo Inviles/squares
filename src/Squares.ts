@@ -5,6 +5,8 @@ export type Player = 1 | 2 | null;
 export type Square = Player;
 export type Row = Square[];
 export type Field = Row[];
+type Statistics = Record<Exclude<Player, null>, number>;
+type MakeMove = (rowIndex: number, columnIndex: number) => { field: Field, statistics: Statistics };
 
 const GAME_HAS_NOT_STARTED = 'The game has not started yet';
 
@@ -21,6 +23,8 @@ class Squares {
 
   remainingNumberOfMoves = 0;
 
+  statistics: Statistics = { 1: 0, 2: 0 };
+
   start = (fieldSize = 3): Field => {
     this.firstPlayerGraph = new Graph();
     this.secondPlayerGraph = new Graph();
@@ -36,7 +40,7 @@ class Squares {
     return this.field;
   }
 
-  makeMove = (rowIndex: number, columnIndex: number): Field => {
+  makeMove: MakeMove = (rowIndex, columnIndex) => {
     if (this.currentPlayer === null) {
       throw new Error(GAME_HAS_NOT_STARTED);
     }
@@ -47,10 +51,15 @@ class Squares {
 
     this.selectSquare(rowIndex, columnIndex);
     this.updateCurrentGraph(rowIndex, columnIndex);
+
+    const numberOfwinningSquares = this.currentPlayerGraph?.findLongestPath();
+    const updatedStatistics = { ...this.statistics, [this.currentPlayer]: numberOfwinningSquares };
+
+    this.statistics = updatedStatistics;
     this.remainingNumberOfMoves -= 1;
     this.switchPlayer();
 
-    return this.field;
+    return { field: this.field, statistics: updatedStatistics };
   }
 
   finish = (): Player => {

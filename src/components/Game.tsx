@@ -33,10 +33,12 @@ const Game: React.FC = () => {
   }, [handleShowModal]);
 
   const makeMove = useCallback((rowIndex: number, columnIndex: number) => {
-    const updatedField = SquaresGame.makeMove(rowIndex, columnIndex);
+    const result = SquaresGame.makeMove(rowIndex, columnIndex);
     const { remainingNumberOfMoves } = SquaresGame;
 
-    setField(updatedField);
+    console.log('result', result);
+
+    setField(result.field);
     setCurrentPlayer(SquaresGame.currentPlayer);
 
     if (remainingNumberOfMoves === 0) {
