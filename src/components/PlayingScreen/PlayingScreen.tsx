@@ -4,22 +4,31 @@ import React from 'react';
 import { Button, Row, Col } from 'react-bootstrap';
 import classNames from 'classnames/bind';
 
-import { Field } from 'src/Squares';
+import { Field, Player } from 'src/Squares';
 import { SquaresRow } from 'src/components';
 import classes from './PlayingScreen.module.scss';
 
 interface Props {
+  player: Player;
   makeMove: (rowIndex: number, columnIndex: number) => void;
   field: Field;
   onFinishGame: () => void;
 }
 
-const PlayingScreen: React.FC<Props> = ({ makeMove, field, onFinishGame }) => {
+const PlayingScreen: React.FC<Props> = ({
+  player, makeMove, field, onFinishGame,
+}) => {
   const cx = classNames.bind(classes);
 
   return (
     <Row className={cx('PlayingScreen', 'py-5')}>
       <Col className="d-flex flex-column align-items-center">
+        <Row className="mb-3">
+          <Col>
+            <h4>{`Current player: ${player}`}</h4>
+          </Col>
+        </Row>
+
         <Row>
           <Col xs={12} className={cx('PlayingScreen__field')}>
             {field.map((squaresRow, rowIndex) => (
@@ -34,10 +43,6 @@ const PlayingScreen: React.FC<Props> = ({ makeMove, field, onFinishGame }) => {
               />
             ))}
           </Col>
-
-          {/* <Col xs={5}>
-            Current player: 1
-          </Col> */}
         </Row>
 
         <Button className="mt-3" onClick={onFinishGame}>Finish</Button>

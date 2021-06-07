@@ -1,7 +1,7 @@
 /* eslint-disable unicorn/no-new-array */
 import { Graph } from './Graph';
 
-type Player = 1 | 2 | null;
+export type Player = 1 | 2 | null;
 export type Square = Player;
 export type Row = Square[];
 export type Field = Row[];
