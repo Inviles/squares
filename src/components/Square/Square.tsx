@@ -35,6 +35,7 @@ const Square: React.FC<Props> = ({
     {
       Square_player_first: player === 1,
       Square_player_second: player === 2,
+      Square_state_empty: !player,
     },
   );
 
