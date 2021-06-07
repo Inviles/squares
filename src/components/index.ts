@@ -3,3 +3,4 @@ export { Square } from './Square/Square';
 export { Game } from './Game';
 export { SquaresRow } from './SquaresRow';
 export { StartScreen } from './StartScreen/StartScreen';
+export { WinnerModal } from './WinnerModal';
