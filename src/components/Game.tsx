@@ -15,8 +15,8 @@ const Game: React.FC = () => {
   const handleShowModal = useCallback((winner) => setWinnerModal({ isShown: true, winner }), []);
   const handleCloseModal = useCallback(() => setWinnerModal(DEFAULT_MODAL_STATE), []);
 
-  const handleStartGame = useCallback(() => {
-    const gameField = SquaresGame.start();
+  const handleStartGame = useCallback((fieldSize = 3) => {
+    const gameField = SquaresGame.start(fieldSize);
 
     setIsPlaying(true);
     setField(gameField);
