@@ -11,11 +11,11 @@ const GAME_HAS_NOT_STARTED = 'The game has not started yet';
 class Squares {
   field: Field = [];
 
-  firstPlayerGraph: Graph | null = null;
+  private firstPlayerGraph: Graph | null = null;
 
-  secondPlayerGraph: Graph | null = null;
+  private secondPlayerGraph: Graph | null = null;
 
-  currentPlayerGraph: Graph | null = null;
+  private currentPlayerGraph: Graph | null = null;
 
   currentPlayer: Player = null;
 
